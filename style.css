@@ -1,0 +1,111 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #d8d8d8; /* Cor de fundo laranja */
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Impede a barra de rolagem */
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: #e63946; /* Cor do texto do título */
+}
+
+.hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    width: 50px; /* Tamanho do coração */
+    height: 50px; /* Tamanho do coração */
+    background-color: #e63946; /* Cor vermelha */
+    transform: rotate(-45deg); /* Rotação corrigida para orientação correta */
+    animation: float 5s infinite;
+    transform-origin: center center; /* Centraliza a rotação */
+    opacity: 1; /* Garante que o coração seja sempre visível */
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #e63946; /* Cor vermelha */
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -25px;
+    left: 0;
+}
+
+.heart::after {
+    left: 25px;
+    top: 0;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(-45deg); /* Mantém a rotação correta durante a animação */
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-100px) rotate(-45deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-200px) rotate(-45deg);
+        opacity: 1; /* Manter opacidade sempre visível */
+    }
+}
+/* Estilo para a imagem do casal */
+.couple-image {
+    position: absolute;
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+    pointer-events: none; /* Evita que as imagens bloqueiem interações com outros elementos */
+    width: 200px; /* Tamanho máximo da imagem */
+    height: 300px; /* Tamanho máximo da imagem */
+    border-radius: 5px; /* Adiciona bordas arredondadas, se preferir */
+}
+
+/* Certifique-se de que as imagens fiquem dentro da área visível */
+body {
+    overflow: hidden; /* Impede a rolagem */
+}
+
+.hearts, .couple-images {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden; /* Garante que qualquer imagem fora da tela seja cortada */
+}
+
+
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
