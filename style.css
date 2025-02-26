@@ -15,7 +15,14 @@ body {
 }
 
 h1 {
-    color: #e63946; /* Cor do texto do título */
+    font-weight: bold;
+    color: #e63946;
+    background: #d8d8d8;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .hearts {
@@ -73,14 +80,23 @@ h1 {
     }
 }
 /* Estilo para a imagem do casal */
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.8); }
+    50% { box-shadow: 0 0 20px rgb(255, 0, 0); }
+    100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.8); }
+}
+
 .couple-image {
     position: absolute;
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
-    pointer-events: none; /* Evita que as imagens bloqueiem interações com outros elementos */
-    width: 200px; /* Tamanho máximo da imagem */
-    height: 300px; /* Tamanho máximo da imagem */
-    border-radius: 5px; /* Adiciona bordas arredondadas, se preferir */
+    width: 100px;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 20%;
+    border: 3px solid rgba(255, 0, 0, 0.8);
+    animation: pulse 1.0s infinite;
 }
+
 
 /* Certifique-se de que as imagens fiquem dentro da área visível */
 body {
@@ -108,4 +124,17 @@ body {
     100% {
         opacity: 1;
     }
+}
+
+.love-phrase {
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    color: #e63946;
+    background: #d8d8d8;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
 }

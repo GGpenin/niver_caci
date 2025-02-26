@@ -1,28 +1,3 @@
-
-function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-
-    // Posição horizontal e vertical aleatória
-    heart.style.left = Math.random() * 100 + 'vw'; // Posição horizontal aleatória
-    heart.style.top = Math.random() * 100 + 'vh'; // Posição vertical aleatória
-
-    // Duração da animação aleatória
-    heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-
-    // Adiciona o coração ao contêiner
-    document.querySelector('.hearts').appendChild(heart);
-
-    // Remove o coração após 5 segundos
-    setTimeout(() => {
-        heart.remove();
-    }, 5000);
-}
-
-// Cria um novo coração a cada 300ms
-setInterval(createHeart, 300);
-
-
 // Array de imagens de casais
 const coupleImages = [
     'imagens/IMG-20250107-WA001.jpg',
@@ -52,89 +27,125 @@ function createCoupleImage() {
     const coupleImage = document.createElement('img');
     coupleImage.classList.add('couple-image');
 
-    // Escolhe uma imagem aleatória do array
+    // Escolhe uma imagem aleatória
     const randomIndex = Math.floor(Math.random() * coupleImages.length);
-    coupleImage.src = coupleImages[randomIndex]; // Define o caminho da imagem aleatória
+    const imageUrl = coupleImages[randomIndex];
 
-    // Tamanho fixo da imagem
-    const imageSize = 100; // Tamanho fixo das imagens (pode ajustar conforme necessário)
+    // Define a URL da imagem
+    coupleImage.src = imageUrl;
 
-    // Obtém o tamanho da tela
-    const maxLeft = window.innerWidth - imageSize;  // Largura da tela - tamanho da imagem
-    const maxTop = window.innerHeight - imageSize;  // Altura da tela - tamanho da imagem
+    // Define posição aleatória dentro da tela
+    const x = Math.random() * (window.innerWidth - 100); // Tamanho fixo da imagem
+    const y = Math.random() * (window.innerHeight - 100);
+    coupleImage.style.left = `${x}px`;
+    coupleImage.style.top = `${y}px`;
 
-    // Gera a posição aleatória para a imagem sem ultrapassar as bordas
-    const left = Math.random() * maxLeft;
-    const top = Math.random() * maxTop;
+    // Adiciona a imagem ao body
+    document.body.appendChild(coupleImage);
 
-    coupleImage.style.left = `${left}px`;  // Posição horizontal aleatória
-    coupleImage.style.top = `${top}px`;  // Posição vertical aleatória
-
-    coupleImage.style.transition = 'opacity 0.3s';  // Adiciona uma transição suave para a opacidade
-
-    // Verifica se a imagem foi carregada corretamente
+    // Verifica se a imagem carregou corretamente
     coupleImage.onload = () => {
-        console.log('Imagem carregada: ' + coupleImage.src);
-        document.querySelector('.couple-images').appendChild(coupleImage); // Adiciona a imagem ao contêiner
-    };
+        // Evento de clique para trocar a imagem
+        coupleImage.addEventListener('click', () => {
+            const newIndex = Math.floor(Math.random() * coupleImages.length);
+            coupleImage.src = coupleImages[newIndex];
+        });
 
-    coupleImage.onerror = () => {
-        console.log('Erro ao carregar a imagem: ' + coupleImage.src);
-    };
-
-    // Evento de clique para trocar a imagem
-    coupleImage.addEventListener('click', () => {
-        // Pega as coordenadas da imagem atual
-        const rect = coupleImage.getBoundingClientRect();
-        const leftPosition = rect.left;
-        const topPosition = rect.top;
-
-        // Faz a imagem desaparecer rapidamente (opacidade)
-        coupleImage.style.opacity = 0;
-
-        // Aguarda o tempo de transição e remove a imagem antiga
+        // Remove a imagem após 5 segundos
         setTimeout(() => {
-            coupleImage.remove();  // Remove a imagem antiga
-            createNewImageAtPosition(leftPosition, topPosition); // Cria a nova imagem na mesma posição
-        }, 100); // Aguarda o tempo da transição (300ms)
-    });
-
-    // Remove a imagem após 5 segundos (caso o clique não aconteça)
-    setTimeout(() => {
-        coupleImage.remove();
-    }, 5000);
-}
-
-// Função para criar uma nova imagem na posição especificada
-function createNewImageAtPosition(left, top) {
-    const newImage = document.createElement('img');
-    newImage.classList.add('couple-image');
-    
-    // Escolhe uma nova imagem aleatória
-    const randomIndex = Math.floor(Math.random() * coupleImages.length);
-    newImage.src = coupleImages[randomIndex];
-
-    // Define a posição da nova imagem para a mesma posição da imagem anterior
-    newImage.style.left = `${left}px`;
-    newImage.style.top = `${top}px`;
-
-    // Verifica se a imagem foi carregada corretamente
-    newImage.onload = () => {
-        document.querySelector('.couple-images').appendChild(newImage); // Adiciona a nova imagem ao contêiner
+            // Remove os estilos da imagem antes de removê-la
+            coupleImage.removeAttribute('style'); // Remove todos os estilos inline
+            coupleImage.remove(); // Remove a imagem do DOM
+        }, 5000);
     };
 
-    newImage.onerror = () => {
-        console.log('Erro ao carregar a nova imagem: ' + newImage.src);
+    // Se a imagem não carregar, remove-a instantaneamente
+    coupleImage.onerror = () => {
+        console.log('Imagem não carregada: ' + imageUrl);
+        // Remove os estilos da imagem antes de removê-la
+        coupleImage.removeAttribute('style'); // Remove todos os estilos inline
+        coupleImage.remove(); // Remove a imagem do DOM
     };
-
-    // Remove a nova imagem após 5 segundos
-    setTimeout(() => {
-        newImage.remove();
-    }, 5000);
 }
 
-// Cria uma nova imagem de casal a cada 2 segundos (sem limite de imagens)
+// Cria imagens aleatoriamente a cada 2 segundos
 setInterval(createCoupleImage, 2000);
 
+// Array de frases
+const frases = [
+    "Eu te amo! 💖",
+    "Você é tudo pra mim! ❤️",
+    "Te quero pra sempre! 💍",
+    "Meu coração é seu! 💓",
+    "Sou louco(a) por você! 😍",
+    "Nosso amor é único! 💑",
+    "Com você, tudo é melhor! ✨",
+    "Você me faz tão feliz! 😊",
+    "Cada dia te amo mais! 💘",
+    "Te amo infinito! ♾️",
+    "Você é meu sonho! 💭💖",
+    "Seu sorriso me encanta! 😁💞",
+    "Te quero aqui agora! 🤗",
+    "Você ilumina meus dias! ☀️",
+    "Sou seu pra sempre! 💍",
+    "Nosso amor é lindo! 💕",
+    "Com você, tudo faz sentido! ❤️",
+    "Você me completa! 💑",
+    "Amo seu jeitinho! 😍",
+    "Meu lar é ao seu lado! 🏡💖",
+    "Eu escolho você! 💘",
+    "Você me faz sorrir! 😊💖",
+    "Te amo demais! ❤️",
+    "Meu mundo é você! 🌍💕",
+    "Nada é melhor que nós! 💑",
+    "Você é minha paz! ☁️💓",
+    "Nosso amor é eterno! ♾️💖",
+    "Você é especial! ✨💞",
+    "Amar você é fácil! 💖",
+    "Você é meu tudo! ❤️",
+    "Te quero sempre comigo! 💑",
+    "Você é o meu melhor! 💕",
+    "Amo estar com você! 😊",
+    "Nosso amor é magia! ✨💖",
+    "Com você, sou feliz! 😍",
+    "Você é minha vida! ❤️",
+    "Meu coração só quer você! 💘",
+    "Você é perfeita pra mim! 💖",
+    "Cada momento com você é único! 💕",
+    "Te amar é minha sorte! 🍀💓",
+    "Juntos somos imbatíveis! 💪💞",
+    "Te amo sem limites! ♾️❤️"
+];
 
+// Função para criar frases na tela
+function createPhrase() {
+    const phraseElement = document.createElement("div");
+    phraseElement.classList.add("love-phrase");
 
+    // Escolhe uma frase aleatória
+    const randomIndex = Math.floor(Math.random() * frases.length);
+    phraseElement.textContent = frases[randomIndex];
+
+    // Define posição aleatória dentro da tela
+    const x = Math.random() * (window.innerWidth - 200); // Evita ultrapassar bordas
+    const y = Math.random() * (window.innerHeight - 50);
+    phraseElement.style.left = `${x}px`;
+    phraseElement.style.top = `${y}px`;
+
+    // Adiciona a frase ao body
+    document.body.appendChild(phraseElement);
+
+    // Evento de clique para trocar a frase
+    phraseElement.addEventListener("click", () => {
+        const newIndex = Math.floor(Math.random() * frases.length);
+        phraseElement.textContent = frases[newIndex];
+    });
+
+    // Remove a frase após 9 segundos
+    setTimeout(() => {
+        phraseElement.remove();
+    }, 9000);
+}
+
+// Cria frases aleatoriamente a cada 3 segundos
+setInterval(createPhrase, 3000);
