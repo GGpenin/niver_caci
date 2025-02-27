@@ -1,3 +1,26 @@
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+
+    // Posição horizontal e vertical aleatória
+    heart.style.left = Math.random() * 100 + 'vw'; // Posição horizontal aleatória
+    heart.style.top = Math.random() * 100 + 'vh'; // Posição vertical aleatória
+
+    // Duração da animação aleatória
+    heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+
+    // Adiciona o coração ao contêiner
+    document.querySelector('.hearts').appendChild(heart);
+
+    // Remove o coração após 5 segundos
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+// Cria um novo coração a cada 300ms
+setInterval(createHeart, 300);
+
 // Array de imagens de casais
 const coupleImages = [
     'imagens/IMG-20250107-WA001.jpg',
